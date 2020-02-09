@@ -4,15 +4,15 @@ import com.project.pokemonspeare.model.TranslatedPokemon
 import com.project.pokemonspeare.service.PokemonShakespeareService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RestController
 import javax.inject.Inject
 
-@Controller
+@RestController
 class PokemonShakespeareControllerImpl : PokemonShakespeareController {
 
     @Inject private lateinit var pokemonShakespeareService : PokemonShakespeareService
 
     override fun getTranslatedPokemon(name: String): ResponseEntity<TranslatedPokemon> {
-        return ResponseEntity(pokemonShakespeareService.getTranslatedPokemon(name), HttpStatus.OK)
+        return ResponseEntity(pokemonShakespeareService.getTranslatedPokemon(name.toLowerCase()), HttpStatus.OK)
     }
 }

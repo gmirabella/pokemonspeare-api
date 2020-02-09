@@ -12,8 +12,8 @@ class TranslatedPokemonRowMapper : RowMapper<TranslatedPokemon> {
 
     override fun mapRow(rs: ResultSet, rowNum: Int): TranslatedPokemon? {
         return TranslatedPokemon(
-                name                  = rs.getString("name"),
-                description           = rs.getString("description")
+                name         = rs.getString("name"),
+                description  = rs.getString("description")
         )
     }
 }

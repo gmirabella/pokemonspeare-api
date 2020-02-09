@@ -16,5 +16,18 @@ http://localhost:8080/swagger-ui.html
 
 ```
 
+## Usage:
+
+```
+curl --location --request GET 'http://localhost:8080/pokemon/snorlax'
+
+or
+
+http --follow --timeout 3600 GET localhost:8080/pokemon/snorlax
+
+```
+
+
+
 ## Requirement
 - Docker

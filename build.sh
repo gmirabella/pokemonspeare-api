@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "**********************************"
-echo "  Create dashboard-download dockerImage"
+echo "  Create pokemonspeare-api dockerImage"
 echo "**********************************"
 
     docker-compose -f docker-compose.yml build

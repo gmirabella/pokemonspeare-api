@@ -1,10 +1,13 @@
+FROM maven:3.5-jdk-8 AS build
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+RUN mvn -f /usr/src/app/pom.xml clean package
+
 FROM openjdk:8-jre-alpine
-WORKDIR /home
-
-COPY /target/*.jar pokemonspeare-api.jar
-
-ENV PORT 8080
+COPY --from=build /usr/src/app/target/*.jar /usr/app/pokemonspeare.jar
 EXPOSE 8080 5005 9010
+ENTRYPOINT ["java","-jar","/usr/app/pokemonspeare.jar"]
+
 
 #LOCAL
 CMD java \
@@ -19,4 +22,4 @@ CMD java \
  -Djava.rmi.server.hostname=localhost \
  -Dcom.sun.management.jmxremote.port=9010 \
  -Dcom.sun.management.jmxremote.rmi.port=9010 \
- pokemonspeare-api.jar
+ pokemonspeare.jar

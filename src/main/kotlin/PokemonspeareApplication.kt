@@ -7,5 +7,6 @@ import org.springframework.boot.runApplication
 class PokemonspeareApplication
 
 fun main(args: Array<String>) {
-	runApplication<PokemonspeareApplication>(*args)
+    runApplication<PokemonspeareApplication>(*args)
 }
+

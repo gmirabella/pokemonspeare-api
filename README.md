@@ -9,13 +9,6 @@ To start the entire application run:
 ./build.sh
 ```
 
-If you are in a hurry, you can skip tests:
-
-```
-./build.sh skipTests
-
-```
-
 ## Documentation
 
 ```

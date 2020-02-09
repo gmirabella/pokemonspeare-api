@@ -1,0 +1,13 @@
+\connect pokemon;
+
+--ACCESS DB
+
+GRANT CONNECT ON DATABASE pokemon TO user_rw;
+
+--ACCESS SCHEMA
+
+GRANT USAGE ON SCHEMA public TO user_rw;
+
+--ACCESS TABLES
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO user_rw;

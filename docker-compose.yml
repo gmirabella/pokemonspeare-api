@@ -1,12 +1,23 @@
 version: '3.7'
 services:
-  api:
+  server:
+    hostname: server
+    container_name: server
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
     ports:
     - "8080:8080"
     - "5005:5005"
     - "9010:9010"
     environment:
-    - APP_NAME=pokemonspeare-api
+    - APP_NAME=pokemonspeare.jar
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: test
+    volumes:
+    - './ddl:/docker-entrypoint-initdb.d'
+    ports:
+    - "5432:5432"

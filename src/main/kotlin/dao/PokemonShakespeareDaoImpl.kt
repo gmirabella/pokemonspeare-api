@@ -1,7 +1,8 @@
 package com.project.pokemonspeare.dao
 
-import com.project.pokemonspeare.model.DBPokemon
-import com.project.pokemonspeare.model.DBPokemonRowMapper
+import com.project.pokemonspeare.model.ShakespeareDescription
+import com.project.pokemonspeare.model.TranslatedPokemon
+import com.project.pokemonspeare.model.TranslatedPokemonRowMapper
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.jdbc.core.JdbcTemplate
@@ -18,23 +19,21 @@ class PokemonShakespeareDaoImpl : PokemonShakespeareDao{
 
     private val log : Logger = LoggerFactory.getLogger(PokemonShakespeareDaoImpl::class.java)
 
-    override fun savePokemonBackuped(name: String, description: String, translatedDescription: String, createdOn: Instant) : Boolean {
+    override fun savePokemonBackuped(name: String, shakespeareDescription: ShakespeareDescription, createdOn: Instant) : Boolean {
         log.info("--- Saving new pokemon with name: <$name> ---")
         val sqlQuery = """
             insert into pokemon (
                 name,
                 description,
-                translated_description,
                 created_on
-            ) values (?,?,?,?)
+            ) values (?,?,?)
         """.trimIndent()
 
         val statement = PreparedStatementCreator { connection ->
             connection.prepareStatement(sqlQuery).apply {
                 setString(1, name)
-                setString(2, description)
-                setString(3, translatedDescription)
-                setTimestamp(4, Timestamp.from(createdOn))
+                setString(2, shakespeareDescription.contents.translated)
+                setTimestamp(3, Timestamp.from(createdOn))
             }
         }
 
@@ -42,7 +41,7 @@ class PokemonShakespeareDaoImpl : PokemonShakespeareDao{
 
     }
 
-    override fun getPokemonBackuped(name: String) : DBPokemon? {
+    override fun getPokemonBackuped(name: String) : TranslatedPokemon? {
         log.info("--- Getting existing Pokemon with name: <$name> ---")
         val sqlQuery = "SELECT * FROM pokemon WHERE name = ?"
 
@@ -51,6 +50,7 @@ class PokemonShakespeareDaoImpl : PokemonShakespeareDao{
                 setString(1, name)
             }
         }
-        return jdbcTemplate.query(statement, DBPokemonRowMapper()).firstOrNull()
+        return jdbcTemplate.query(statement, TranslatedPokemonRowMapper()).firstOrNull()
     }
+
 }
